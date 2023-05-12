@@ -10,14 +10,28 @@
         "doctrine/doctrine-bundle": "^2.9",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.15",
+        "sensio/framework-extra-bundle": "*",
+        "symfony/asset": "6.2.*",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.2.*",
+        "symfony/mailer": "6.2.*",
+        "symfony/messenger": "6.2.*",
+        "symfony/monolog-bundle": "*",
+        "symfony/notifier": "6.2.*",
         "symfony/runtime": "6.2.*",
-        "symfony/yaml": "6.2.*"
+        "symfony/security-bundle": "6.2.*",
+        "symfony/translation": "6.2.*",
+        "symfony/twig-bundle": "6.2.*",
+        "symfony/validator": "6.2.*",
+        "symfony/web-profiler-bundle": "6.2.*",
+        "symfony/yaml": "6.2.*",
+        "symfonycasts/verify-email-bundle": "*",
+        "twig/extra-bundle": "*"
     },
     "require-dev": {
+        "symfony/debug-bundle": "6.2.*",
         "symfony/maker-bundle": "^1.48"
     },
     "config": {

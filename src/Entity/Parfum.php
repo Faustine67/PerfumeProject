@@ -55,6 +55,12 @@ class Parfum
     #[ORM\ManyToMany(targetEntity: NoteDeFond::class, inversedBy: 'parfums')]
     private Collection $noteFond;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $contenance = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
 
     public function __construct()
     {
@@ -301,6 +307,30 @@ class Parfum
     public function removeNoteFond(NoteDeFond $noteFond): self
     {
         $this->noteFond->removeElement($noteFond);
+
+        return $this;
+    }
+
+    public function getContenance(): ?string
+    {
+        return $this->contenance;
+    }
+
+    public function setContenance(?string $contenance): self
+    {
+        $this->contenance = $contenance;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

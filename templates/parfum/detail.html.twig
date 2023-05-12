@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ParfumController!{% endblock %}
+
+{% block body %}
+     <h1>{{parfum.nom}}</h1>
+
+
+      {{parfum.image}}<br>
+      {{parfum.marque}}<br>
+      {{parfum.notetete.notedetete.nom}}<br>
+      {{parfum.notedecoeur.nom}}<br>
+      {{parfum.notedefond.nom}}<br>
+{% endblock %}
