@@ -47,20 +47,21 @@ class Parfum
     private Collection $parfums;
 
     #[ORM\ManyToMany(targetEntity: NoteDeTete::class, inversedBy: 'parfums')]
-    private Collection $notetete;
+    private Collection $noteTete;
 
     #[ORM\ManyToMany(targetEntity: NoteDeCoeur::class, inversedBy: 'parfums')]
     private Collection $noteCoeur;
 
-    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'parfums')]
+    #[ORM\ManyToMany(targetEntity: NoteDeFond::class, inversedBy: 'parfums')]
     private Collection $noteFond;
+
 
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
         $this->dupe = new ArrayCollection();
         $this->parfums = new ArrayCollection();
-        $this->notetete = new ArrayCollection();
+        $this->noteTete = new ArrayCollection();
         $this->noteCoeur = new ArrayCollection();
         $this->noteFond = new ArrayCollection();
     }
@@ -235,23 +236,23 @@ class Parfum
     /**
      * @return Collection<int, NoteDeTete>
      */
-    public function getNotetete(): Collection
+    public function getNoteTete(): Collection
     {
-        return $this->notetete;
+        return $this->noteTete;
     }
 
-    public function addNotetete(NoteDeTete $notetete): self
+    public function addNoteTete(NoteDeTete $noteTete): self
     {
-        if (!$this->notetete->contains($notetete)) {
-            $this->notetete->add($notetete);
+        if (!$this->noteTete->contains($noteTete)) {
+            $this->noteTete->add($noteTete);
         }
 
         return $this;
     }
 
-    public function removeNotetete(NoteDeTete $notetete): self
+    public function removeNoteTete(NoteDeTete $noteTete): self
     {
-        $this->notetete->removeElement($notetete);
+        $this->noteTete->removeElement($noteTete);
 
         return $this;
     }
@@ -288,7 +289,7 @@ class Parfum
         return $this->noteFond;
     }
 
-    public function addNoteFond(self $noteFond): self
+    public function addNoteFond(NoteDeFond $noteFond): self
     {
         if (!$this->noteFond->contains($noteFond)) {
             $this->noteFond->add($noteFond);
@@ -297,10 +298,11 @@ class Parfum
         return $this;
     }
 
-    public function removeNoteFond(self $noteFond): self
+    public function removeNoteFond(NoteDeFond $noteFond): self
     {
         $this->noteFond->removeElement($noteFond);
 
         return $this;
     }
+
 }

@@ -22,7 +22,7 @@ class NoteDeTete
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Parfum::class, mappedBy: 'notetete')]
+    #[ORM\ManyToMany(targetEntity: Parfum::class, mappedBy: 'noteTete')]
     private Collection $parfums;
 
     public function __construct()
@@ -71,7 +71,7 @@ class NoteDeTete
     {
         if (!$this->parfums->contains($parfum)) {
             $this->parfums->add($parfum);
-            $parfum->addNotetete($this);
+            $parfum->addNoteTete($this);
         }
 
         return $this;
@@ -80,7 +80,7 @@ class NoteDeTete
     public function removeParfum(Parfum $parfum): self
     {
         if ($this->parfums->removeElement($parfum)) {
-            $parfum->removeNotetete($this);
+            $parfum->removeNoteTete($this);
         }
 
         return $this;

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\NoteDeFondRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,14 @@ class NoteDeFond
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\ManyToMany(targetEntity: Parfum::class,  mappedBy: 'noteFond')]
+    private Collection $parfums;
+
+    public function __construct()
+    {
+        $this->parfums = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -46,6 +56,31 @@ class NoteDeFond
     {
         $this->description = $description;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Parfum>
+     */
+    public function getParfums(): Collection
+    {
+        return $this->parfums;
+    }
+
+    public function addParfum(Parfum $parfum): self
+    {
+        if (!$this->parfums->contains($parfum)) {
+            $this->parfums->add($parfum);
+            $parfum->addNoteFond($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParfum(Parfum $parfum): self
+    {
+        $this->parfum->removeElement($parfum);
+        $parfum->removeNoteFond($this);
         return $this;
     }
 }
