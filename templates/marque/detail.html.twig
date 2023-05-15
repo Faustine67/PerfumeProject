@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MarqueController!{% endblock %}
+
+{% block body %}
+     <h1>Les Parfums de {{marque.nom }}</h1>
+
+      {% for parfum in marque.parfums %}
+      {% set imagePath = asset("" ~ parfum.image) %}
+
+        <div class="parfum-cart">
+        <a href="{{path('detail_parfum',{"id":parfum.id})}}">
+          <div class="clicking-area" > 
+            <img src="{{ imagePath }}"><br>
+            {{parfum.nom }} <br>
+          </div>
+        </a>
+
+          <a>  {{parfum.marque}} </a> <br>
+        </div>     
+
+      {% endfor %}
+
+    <br>
+      <a> Ajouter un parfum</a>
+   </div>
+{% endblock %}

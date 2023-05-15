@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ParfumController!{% endblock %}
+
+{% block body %}
+     <h1>Les Marques</h1>
+
+      {% for marque in marques %}
+
+  
+        <a href="{{path('detail_marque',{"id":marque.id})}}">
+        {{marque.nom}}  <br>
+        </a>
+
+      {% endfor %}
+
+    <br>
+      <a> Ajouter une marque</a>
+   </div>
+{% endblock %}
