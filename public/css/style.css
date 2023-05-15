@@ -5,6 +5,7 @@ h1{
     padding:0 0 20px;
     font-size:50px;
 }
+/* Affichage de tous les parfums*/
 .parfum-cart {
     display: flex;
     flex-direction: row;
@@ -52,3 +53,27 @@ h1{
     box-sizing: border-box;
     border-radius: 10px;
   }
+
+  /* Affichage des parfums par id */
+  .parfum{
+    display:flex;
+    justify-content:center;
+    text-align: center;
+    padding-top: 30px;
+  }
+
+  .image-detail-parfum {
+    float: left;
+    width: 50%;
+  }
+  
+  .info-parfum {
+    width: 50%;
+  }
+
+  .image-detail-parfum, .info-parfum{
+    display:inline-block;
+  }
+  
+
+

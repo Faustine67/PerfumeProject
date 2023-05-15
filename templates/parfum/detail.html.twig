@@ -3,12 +3,32 @@
 {% block title %}Hello ParfumController!{% endblock %}
 
 {% block body %}
-     <h1>{{parfum.nom}}</h1>
+<div class ='parfum'>
 
+      <div class="image-detail-parfum">
+      {% set imagePath = asset("" ~ parfum.image) %}
+      <img src="{{ imagePath }}">
+      </div>
 
-      {{parfum.image}}<br>
-      {{parfum.marque}}<br>
-      {{parfum.notetete.notedetete.nom}}<br>
-      {{parfum.notedecoeur.nom}}<br>
-      {{parfum.notedefond.nom}}<br>
+      <div class='info-parfum'>
+           <br> <h1>{{parfum.nom}}</h1>
+            {{parfum.marque}}<br>
+            
+            Note de Tête:<br>
+            {% for noteTete in parfum.noteTete %}
+            {{ noteTete.nom }}<br>
+            {% endfor %}
+            
+            Note de Coeur:<br>
+            {% for noteCoeur in parfum.noteCoeur %}
+            {{ noteCoeur.nom }}<br>
+            {% endfor %}
+            
+            Note de Fond:<br>
+            {% for noteFond in parfum.noteFond %}
+            {{ noteFond.nom }}<br>
+            {% endfor %}
+      </div>
+</div>
+
 {% endblock %}
