@@ -8,3 +8,6 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+component/_search_data.html.twig
+component/_search_data.html.twig
+component/_search_data.html.twig

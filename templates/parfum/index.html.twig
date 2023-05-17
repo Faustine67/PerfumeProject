@@ -5,6 +5,10 @@
 {% block body %}
      <h1>Les Fragrances</h1>
 
+     <div class="filter">
+         {% include 'parfum/filter.html.twig' with {form:form} only %}
+     
+     </div>
       {% for parfum in parfums %}
       {% set imagePath = asset("" ~ parfum.image) %}
 
@@ -21,7 +25,15 @@
 
       {% endfor %}
 
+
     <br>
       <a> Ajouter un parfum</a>
    </div>
 {% endblock %}
+
+{# <div class="container">
+  <h1>Dernieres nouveautés</h1>
+  <h1> Le catalogue </h1>
+  <h1> Toutes les marques </h1>
+  <h1> Les ingrédients <h1>
+</div> #}

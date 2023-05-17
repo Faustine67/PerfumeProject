@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Parfum;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Model\SearchData;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Parfum>
@@ -63,4 +64,13 @@ class ParfumRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+//Recuperer les produits en lien avec une recherche
+
+    public function findSearch(SearchData $search):array
+    {
+        $query =$this->createQueryBuilder('p');
+        // ->join('p.marques','m');
+    return $query->getQuery()->getResult();
+    }
 }

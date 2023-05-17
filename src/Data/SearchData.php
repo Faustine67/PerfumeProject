@@ -1,6 +1,9 @@
 <?php
 namespace App\Model;
 
+use Doctrine\Common\Collections\Collection;
+
+
 class SearchData{
 
     // Permet de rentrer un mot clé (q comme query) //
@@ -29,10 +32,24 @@ class SearchData{
      * @var null|integer */
     public $min;
 
-    /** 
-     * @var boolean */
+    // /** 
+    //  * @var boolean */
 
-    public $notetete = false;
+    // public $noteTete = false;
+
+    private ?Collection $noteTete = null;
+
+    public function getNoteTete(): ?Collection
+    {
+        return $this->noteTete;
+    }
+
+    public function setNoteTete(?Collection $noteTete): self
+    {
+        $this->noteTete = $noteTete;
+
+        return $this;
+    }
 
 
 

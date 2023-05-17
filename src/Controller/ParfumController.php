@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Marque;
 use App\Entity\Parfum;
+use App\Form\SearchForm;
+use App\Model\SearchData;
+use App\Repository\ParfumRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,27 +18,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ParfumController extends AbstractController
 {
-    //Creation de la barre de recherche //
-    #[Route('/',name:'post.index',methods:['GET'])]
-    public function search( PostRepository $postRepository, Request $request): Response{
-        $searchData = new SearchData();
-        $form= $this->createForm(SearchType::class,$searchData);
 
-        $form->handelRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            dd($searchData);
-        }
-    }
-
-
-
-    //Afficher tous les parfums
+    //Afficher tous les parfums + barre de recherche
     #[Route('/parfum', name: 'app_parfum')]
-        public function index(ManagerRegistry $doctrine): Response
+        public function index(ManagerRegistry $doctrine, ParfumRepository $repository, Request $request): Response
         {
-        $parfums= $doctrine->getRepository(Parfum::class)->findAll();
+            $data = new SearchData();
+            $form= $this->createForm(SearchForm::class,$data);
+            $form->handleRequest($request);
+            $parfums = $repository->findSearch($data);
+        // $parfums= $doctrine->getRepository(Parfum::class)->findAll();
         return $this->render('parfum/index.html.twig', [
             'parfums' => $parfums,
+            'form' => $form->createView()
         ]);
         }
 
