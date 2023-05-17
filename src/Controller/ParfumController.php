@@ -21,11 +21,11 @@ class ParfumController extends AbstractController
 
     //Afficher tous les parfums + barre de recherche
     #[Route('/parfum', name: 'app_parfum')]
-        public function index(ManagerRegistry $doctrine, ParfumRepository $repository, Request $request): Response
+        public function index( ParfumRepository $repository, Request $request)
         {
             $data = new SearchData();
             $form= $this->createForm(SearchForm::class,$data);
-            $form->handleRequest($request);
+            // $form->handleRequest($request);
             $parfums = $repository->findSearch($data);
         // $parfums= $doctrine->getRepository(Parfum::class)->findAll();
         return $this->render('parfum/index.html.twig', [

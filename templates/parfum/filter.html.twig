@@ -1,20 +1,21 @@
-{{ form_start(form, {attr:{class:'filter'}}) }}
-{{form_row(form.q)}}
+{{ form_start(form, {attr: {class: 'filter'}}) }}
+{{ form_row(form.q) }}
 
-<h4>Marques</h4>
-{# {{form_row(form.marques)}} #}
+{# <h4>Marques</h4>
+{{ form_row(form.marques) }} #}
 
 <h4>Note de Tete</h4>
-{{form_row(form.noteTete)}}
+{{ form_row(form.noteTete) }}
+
 {# <h4>Note de Coeur</h4>
-{{form_row(form.noteCoeur)}}
+{{ form_row(form.noteCoeur) }}
+
 <h4>Note de Fond</h4>
-{{form_row(form.noteFond)}} #}
+{{ form_row(form.noteFond) }} #}
 
 <h4>Prix</h4>
-
-{{form_row(form.min)}}
-{{form_row(form.max)}}
+{{ form_row(form.min) }}
+{{ form_row(form.max) }}
 
 <button type="submit">Filtrer</button>
 

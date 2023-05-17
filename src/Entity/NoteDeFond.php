@@ -83,4 +83,9 @@ class NoteDeFond
         $parfum->removeNoteFond($this);
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getNom();
+    }
 }

@@ -67,10 +67,37 @@ class ParfumRepository extends ServiceEntityRepository
 
 //Recuperer les produits en lien avec une recherche
 
-    public function findSearch(SearchData $search):array
-    {
-        $query =$this->createQueryBuilder('p');
-        // ->join('p.marques','m');
-    return $query->getQuery()->getResult();
+public function findSearch(SearchData $search): array
+{
+    $query = $this->createQueryBuilder('parfum')
+        ->select('parfum', 'noteTete')
+        ->join('parfum.noteTete', 'noteTete');
+
+    if (!empty($search->q)) {
+        $query = $query
+            ->andWhere('parfum.nom LIKE :q')
+            ->setParameter('q', "%{$search->q}%");
     }
+
+    if (!empty($search->min)) {
+        $query = $query
+            ->andWhere('parfum.prix > :min')
+            ->setParameter('min', $search->min);
+    }
+
+    if (!empty($search->max)) {
+        $query = $query
+            ->andWhere('parfum.prix <= :max')
+            ->setParameter('max', $search->max);
+    }
+
+    if (!empty($search->noteTete)) {
+        $query = $query
+            ->andWhere('noteTete.id IN (:noteTete)')
+            ->setParameter('noteTete', $search->noteTete);
+    }
+
+    return $query->getQuery()->getResult();
+}
+
 }
