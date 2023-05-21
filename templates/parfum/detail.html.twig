@@ -12,21 +12,21 @@
 
       <div class='info-parfum'>
            <br> <h1>{{parfum.nom}}</h1>
-           <a href="{{path('detail_marque',{"id":marque.id})}}"> {{parfum.marque}} </a><br>
+           <a href="{{path('detail_marque',{"id":marque.id})}}"> {{parfum.marque}} </a>
 
-            Gamme de Prix: <br>
+            <h4>Gamme de Prix:</h4>
             
-            <br>Note de Tête:<br>
+            <h4>Note de Tête: </h4>
             {% for noteTete in parfum.noteTete %}
             {{ noteTete.nom }}<br>
             {% endfor %}
             
-            <br>Note de Coeur:<br>
+            <h4>Note de Coeur: </h4>
             {% for noteCoeur in parfum.noteCoeur %}
             {{ noteCoeur.nom }}<br>
             {% endfor %}
             
-            <br>Note de Fond:<br>
+            <h4>Note de Fond:</h4>
             {% for noteFond in parfum.noteFond %}
             {{ noteFond.nom }}<br>
             {% endfor %}
