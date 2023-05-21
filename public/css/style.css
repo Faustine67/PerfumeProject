@@ -34,8 +34,6 @@ nav {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-
-
 h1{
     text-align: center;
     /* height: 200px; */
@@ -119,6 +117,13 @@ h1{
     position:sticky;
     top: 20px ;
   }
+
+  .image-detail-parfum,
+  .dupe-cart {
+    display: block;
+    margin-top: 20px;
+  }
+  
   
 
 

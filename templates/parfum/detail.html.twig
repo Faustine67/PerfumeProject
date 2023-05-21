@@ -33,4 +33,20 @@
       </div>
 </div>
 
-{% endblock %}
+<div class="dupe-cart">
+      <h2>Les dupes</h2>
+      {% if parfum.dupe is not empty %}
+          <a href="{{ path('detail_parfum', {'id': parfum.dupe[0].id}) }}">
+              <div class="clicking-area">
+                  <img src="{{parfum.image }}"><br>
+                  {{ parfum.dupe[0].nom }} <br>
+              </div>
+          </a>
+          <a>{{ parfum.dupe[0].marque }}</a> <br>
+      {% else %}
+
+      {% endif %}
+  </div>
+  
+  {% endblock %}
+  

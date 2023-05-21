@@ -13,12 +13,13 @@
       {% set imagePath = asset("" ~ parfum.image) %}
 
         <div class="parfum-cart">
-        <a href="{{path('detail_parfum',{"id":parfum.id})}}">
-          <div class="clicking-area" > 
-            <img src="{{ imagePath }}"><br>
-            {{parfum.nom }} <br>
-          </div>
-        </a>
+          
+          <a href="{{path('detail_parfum',{"id":parfum.id})}}">
+            <div class="clicking-area" > 
+              <img src="{{ imagePath }}"><br>
+              {{parfum.nom }} <br>
+            </div>
+          </a>
 
           <a>  {{parfum.marque}} </a> <br>
         </div>     
@@ -27,7 +28,6 @@
 
 
     <br>
-      <a> Ajouter un parfum</a>
    </div>
 {% endblock %}
 

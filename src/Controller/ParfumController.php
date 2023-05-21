@@ -25,8 +25,8 @@ class ParfumController extends AbstractController
         {
             $data = new SearchData();
             $form= $this->createForm(SearchForm::class,$data);
-            // $form->handleRequest($request);
-            $parfums = $repository->findSearch($data);
+            $form->handleRequest($request);
+            $parfums = $repository->findAll();
         // $parfums= $doctrine->getRepository(Parfum::class)->findAll();
         return $this->render('parfum/index.html.twig', [
             'parfums' => $parfums,
@@ -36,16 +36,21 @@ class ParfumController extends AbstractController
 
     //Afficher un parfum par Id
     #[Route('/parfum/{id}', name: 'detail_parfum')]
-        public function detail (ManagerRegistry $doctrine, $id, Marque $marque): Response
+        public function detail (ManagerRegistry $doctrine, $id, Parfum $parfums): Response
         {
             $parfum= $doctrine->getRepository(Parfum::class)->find($id);
            
             if (!$parfum) {
                 throw $this->createNotFoundException('Le parfum n\'existe pas.');
             }
+
+            $marque = $parfum->getMarque();
+            $dupes= $parfum->getDupe();
             return $this->render('parfum/detail.html.twig', [
                 'parfum' => $parfum,
-                'marque'=>$marque,]);
+                'marque'=>$marque,
+                'dupes'=>$dupes,
+            ]);
         }
 }
 
