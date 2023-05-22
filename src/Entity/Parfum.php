@@ -34,11 +34,11 @@ class Parfum
     #[ORM\ManyToOne(inversedBy: 'parfums')]
     private ?Marque $marque = null;
 
-    #[ORM\ManyToMany(targetEntity: Utilisateur::class, mappedBy: 'parfumsfavoris')]
-    private Collection $utilisateurs;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'parfumsfavoris')]
+    private Collection $users;
 
     #[ORM\ManyToOne(inversedBy: 'parfumsSuggestion')]
-    private ?Utilisateur $utilisateur = null;
+    private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'parfums')]
     private Collection $dupe;
@@ -64,7 +64,7 @@ class Parfum
 
     public function __construct()
     {
-        $this->utilisateurs = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->dupe = new ArrayCollection();
         $this->parfums = new ArrayCollection();
         $this->noteTete = new ArrayCollection();
@@ -150,40 +150,40 @@ class Parfum
     }
 
     /**
-     * @return Collection<int, Utilisateur>
+     * @return Collection<int, User>
      */
-    public function getUtilisateurs(): Collection
+    public function getUsers(): Collection
     {
-        return $this->utilisateurs;
+        return $this->Users;
     }
 
-    public function addUtilisateur(Utilisateur $utilisateur): self
+    public function addUser(User $user): self
     {
-        if (!$this->utilisateurs->contains($utilisateur)) {
-            $this->utilisateurs->add($utilisateur);
-            $utilisateur->addParfumsfavori($this);
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addParfumsfavori($this);
         }
 
         return $this;
     }
 
-    public function removeUtilisateur(Utilisateur $utilisateur): self
+    public function removeUser(User $user): self
     {
-        if ($this->utilisateurs->removeElement($utilisateur)) {
-            $utilisateur->removeParfumsfavori($this);
+        if ($this->users->removeElement($user)) {
+            $user->removeParfumsfavori($this);
         }
 
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUser(): ?User
     {
-        return $this->utilisateur;
+        return $this->user;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
+    public function setUser(?User $user): self
     {
-        $this->utilisateur = $utilisateur;
+        $this->user = $user;
 
         return $this;
     }
