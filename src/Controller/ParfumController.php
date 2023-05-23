@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Marque;
 use App\Entity\Parfum;
+use App\Form\ParfumType;
 use App\Form\SearchForm;
 use App\Model\SearchData;
 use App\Repository\ParfumRepository;
@@ -33,6 +34,28 @@ class ParfumController extends AbstractController
             'form' => $form->createView()
         ]);
         }
+    
+    #[Route('/parfum/add', name: 'add_parfum')]
+    public function add(EntityManagerInterface $entityManager, Parfum $parfum=null, Request $request): Response
+    {
+        //Creation du formulaire
+
+        $form= $this->createForm(ParfumType::class, $parfum);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $parfum= $form->getData();
+            $entityManager->persist($parfum);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_parfum',array('id' => $parfum->getId()));
+        }
+
+        return $this->render('parfum/add.html.twig', [
+           'formAddParfum' => $form->createView(),
+        ]);
+    }
 
     //Afficher un parfum par Id
     #[Route('/parfum/{id}', name: 'detail_parfum')]

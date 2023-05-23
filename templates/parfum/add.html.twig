@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un parfum{% endblock %}
+
+{% block body %}
+<h1>Ajouter un parfum </h1>
+
+       {{form_start(formAddParfum)}}
+
+        <div>
+            {{form_row(formAddParfum.nom)}}
+            {{form_row(formAddParfum.contenance)}}
+            {{form_row(formAddParfum.prix)}}
+            {{form_row(formAddParfum.marque)}}
+            {{form_row(formAddParfum.image)}}
+
+            {{form_row(formAddParfum.noteTete)}}
+            {{form_row(formAddParfum.noteCoeur)}}
+            {{form_row(formAddParfum.noteFond)}}
+
+            {{form_row(formAddParfum.avis)}}
+
+
+            {{form_row(formAddParfum.submit)}}
+        </div>
+
+       {{form_end(formAddParfum)}}
+
+{% endblock %}
