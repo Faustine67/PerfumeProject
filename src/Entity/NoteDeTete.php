@@ -25,9 +25,6 @@ class NoteDeTete
     #[ORM\ManyToMany(targetEntity: Parfum::class, mappedBy: 'noteTete')]
     private Collection $parfums;
 
-    #[ORM\ManyToOne(inversedBy: 'noteDeTete')]
-    private ?Notes $notes = null;
-
     public function __construct()
     {
         $this->parfums = new ArrayCollection();
@@ -89,22 +86,10 @@ class NoteDeTete
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->getNom();
-    }
-
-    public function getNotes(): ?Notes
-    {
-        return $this->notes;
-    }
-
-    public function setNotes(?Notes $notes): self
-    {
-        $this->notes = $notes;
-
-        return $this;
-    }
+    // public function __toString(): string
+    // {
+    //     return $this->getNom();
+    // }
 
     public function __toString(): string
     {

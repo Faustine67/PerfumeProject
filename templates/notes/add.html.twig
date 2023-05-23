@@ -8,8 +8,13 @@
        {{form_start(formAddNotes)}}
 
         <div>
+            {{form_row(formAddNotes.note)}}
+    <p>Ajouter la note dans: </p>
             {{form_row(formAddNotes.noteDeTete)}}
-            {{form_row(formAddNotes.noteDeTete.description)}}
+            {{form_row(formAddNotes.noteDeCoeur)}}
+            {{form_row(formAddNotes.noteDeFond)}}
+
+            {# {{form_row(formAddNotes.noteDeTete.description)}} #}
 
 
             {{form_row(formAddNotes.submit)}}
