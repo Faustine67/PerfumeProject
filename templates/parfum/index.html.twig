@@ -5,6 +5,8 @@
 {% block body %}
      <h1>Les Fragrances</h1>
      <a href="{{ path('add_parfum')}}"> Ajouter un parfum</a><br>
+     <a href="{{ path('add_marque')}}"> Ajouter une marque</a><br>
+
 
      <div class="filter">
          {% include 'parfum/filter.html.twig' with {form:form} only %}
