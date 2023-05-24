@@ -87,4 +87,12 @@ class NoteDeFond
     {
         return $this->getNom() ?? '';
     }
+
+    public function setNoteDeFond(string $noteDeFond): self
+    {
+        $this->setNom($noteDeFond);
+    
+        return $this;
+    }
+    
 }

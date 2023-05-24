@@ -86,10 +86,13 @@ class NoteDeTete
         return $this;
     }
 
-    // public function __toString(): string
-    // {
-    //     return $this->getNom();
-    // }
+    public function setNoteDeTete(string $noteDeTete): self
+    {
+        $this->setNom($noteDeTete);
+    
+        return $this;
+    }
+    
 
     public function __toString(): string
     {

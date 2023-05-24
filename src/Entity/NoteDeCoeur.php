@@ -91,4 +91,12 @@ class NoteDeCoeur
         return $this->getNom() ?? '';
     }
 
+    public function setNoteDeCoeur(string $noteDeCoeur): self
+    {
+        $this->setNom($noteDeCoeur);
+    
+        return $this;
+    }
+    
+
 }
