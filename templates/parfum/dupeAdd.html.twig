@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un dupe{% endblock %}
+
+{% block body %}
+<h1>Ajouter un dupe</h1>
+
+{{ form_start(formAddDupe) }}
+
+<div>
+    {{ form_row(formAddDupe.nom) }}
+    {{ form_row(formAddDupe.contenance) }}
+    {{ form_row(formAddDupe.prix) }}
+    {{ form_row(formAddDupe.marque) }}
+    {{ form_row(formAddDupe.image) }}
+
+    {{ form_row(formAddDupe.noteTete) }}
+    {{ form_row(formAddDupe.noteCoeur) }}
+    {{ form_row(formAddDupe.noteFond) }}
+
+    {{ form_row(formAddDupe.avis) }}
+
+    {{ form_row(formAddDupe.submit) }}
+</div>
+
+{{ form_end(formAddDupe) }}
+
+{% endblock %}
+

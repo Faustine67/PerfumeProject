@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Marque;
 use App\Entity\Parfum;
+use App\Form\DupeType;
 use App\Form\ParfumType;
 use App\Form\SearchForm;
 use App\Model\SearchData;
@@ -35,6 +36,7 @@ class ParfumController extends AbstractController
         ]);
         }
     
+    //Ajouter un parfum 
     #[Route('/parfum/add', name: 'add_parfum')]
     public function add(EntityManagerInterface $entityManager, Parfum $parfum=null, Request $request): Response
     {
@@ -57,6 +59,32 @@ class ParfumController extends AbstractController
         ]);
     }
 
+    //Ajouter un dupe à un parfum
+    #[Route('parfum/{id}/add', name: 'add_dupe')]
+    public function addDupe(EntityManagerInterface $entityManager, Parfum $parfum, Request $request):Response
+    {
+        $dupe = new Parfum(); // Créer une nouvelle instance de Parfum
+
+        $form= $this->createForm(DupeType::class, $dupe);
+        $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+
+                $dupe = $form->getData();
+                $parfum->addDupe($dupe);
+                $entityManager->persist($dupe);
+                $entityManager->flush();
+
+
+                return $this->redirectToRoute('detail_parfum', ['id' => $parfum->getId()]);
+            }
+        
+        return $this->render('parfum/dupeAdd.html.twig',[
+            'formAddDupe'=>$form->createView(),
+        ]);
+    }
+
+    
     //Afficher un parfum par Id
     #[Route('/parfum/{id}', name: 'detail_parfum')]
         public function detail (ManagerRegistry $doctrine, $id, Parfum $parfums): Response

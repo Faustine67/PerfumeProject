@@ -23,7 +23,7 @@ class NotesController extends AbstractController
     }
 
     #[Route('/note/add', name:'add_note')]
-    public function add(EntityManagerInterface $entityManager, Request $request): Response
+        public function add(EntityManagerInterface $entityManager, Request $request): Response
     {
         $form = $this->createForm(NotesType::class);
         $form->handleRequest($request);
@@ -54,15 +54,14 @@ if ($form->isSubmitted() && $form->isValid()) {
     $entityManager->flush();
 
     return $this->redirectToRoute('app_parfum');
-}
-
-// ...
-
+        }
 
         return $this->render('notes/add.html.twig', [
             'formAddNotes' => $form->createView(),
         ]);
     }
+
+
 
 
 }
