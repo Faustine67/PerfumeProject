@@ -36,17 +36,19 @@
 <div class="dupe-cart">
       <h2>Les dupes</h2>
       
-      {% if parfum.dupe is not empty %}
-      {% for dupe in dupes %}
-      {% set dupeImagePath = asset("" ~ parfum.dupe[0].image) %}
-          <a href="{{ path('detail_parfum', {'id': dupe.id}) }}">
+    {% if parfum.dupe is not empty %}
+        {% for dupe in dupes %}
+            {% set dupeImagePath = asset("" ~ parfum.dupe.image) %}
+             <a href="{{ path('detail_parfum', {'id': dupe.id}) }}">
               <div class="clicking-area">
                   <img src="{{dupeImagePath }}"><br>
                   {{ parfum.dupe[0].nom }} <br>
               </div>
-          </a>
-          <a>{{ parfum.dupe[0].marque }}</a> <br>
-      {% else %}
+            </a>
+             <a>{{ parfum.dupe[0].marque }}</a> <br>
+
+        {% else %}
+
       {% endfor %}
 
       {% endif %}

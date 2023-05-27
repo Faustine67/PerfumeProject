@@ -34,11 +34,16 @@ class Parfum
     #[ORM\ManyToOne(inversedBy: 'parfums')]
     private ?Marque $marque = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'parfumsfavoris')]
-    private Collection $users;
+    // #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'parfumsfavoris')]
+    // private Collection $users;
 
-    #[ORM\ManyToOne(inversedBy: 'parfumsSuggestion')]
-    private ?User $user = null;
+    #[ORM\ManyToMany(targetEntity:User::class)]
+    #[ORM\JoinTable(name: 'user_post_like')]
+    private Collection $likes;
+    
+
+    // #[ORM\ManyToOne(inversedBy: 'parfumsSuggestion')]
+    // private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'parfums')]
     private Collection $dupe;
@@ -66,10 +71,11 @@ class Parfum
     {
         $this->users = new ArrayCollection();
         $this->dupe = new ArrayCollection();
-        $this->parfums = new ArrayCollection();
+        // $this->parfums = new ArrayCollection();
         $this->noteTete = new ArrayCollection();
         $this->noteCoeur = new ArrayCollection();
         $this->noteFond = new ArrayCollection();
+        $this->likes= new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,32 +218,32 @@ class Parfum
         return $this;
     }
 
-    /**
-     * @return Collection<int, self>
-     */
-    public function getParfums(): Collection
-    {
-        return $this->parfums;
-    }
+    // /**
+    //  * @return Collection<int, self>
+    //  */
+    // public function getParfums(): Collection
+    // {
+    //     return $this->parfums;
+    // }
 
-    public function addParfum(self $parfum): self
-    {
-        if (!$this->parfums->contains($parfum)) {
-            $this->parfums->add($parfum);
-            $parfum->addDupe($this);
-        }
+    // public function addParfum(self $parfum): self
+    // {
+    //     if (!$this->parfums->contains($parfum)) {
+    //         $this->parfums->add($parfum);
+    //         $parfum->addDupe($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeParfum(self $parfum): self
-    {
-        if ($this->parfums->removeElement($parfum)) {
-            $parfum->removeDupe($this);
-        }
+    // public function removeParfum(self $parfum): self
+    // {
+    //     if ($this->parfums->removeElement($parfum)) {
+    //         $parfum->removeDupe($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, NoteDeTete>
@@ -333,6 +339,30 @@ class Parfum
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getLikes():Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(User $like):self
+    {
+        if(!$this->likes->contains($like)) {
+            $this->likes[]= $like;
+        }
+        return $this;
+    }
+
+    public function removeLike(User $like):self
+    {
+        $this->likes->removeElement($like);
+        return $this;
+    }
+
+    public function isLikedByUser(User $user):bool
+    {
+        return $this->likes->contains($user);
     }
 
     public function __toString(): string

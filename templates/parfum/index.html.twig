@@ -3,38 +3,45 @@
 {% block title %}Hello ParfumController!{% endblock %}
 
 {% block body %}
-     <h1>Les Fragrances</h1>
-     <a href="{{ path('add_parfum')}}"> Ajouter un parfum</a><br>
-     <a href="{{ path('add_marque')}}"> Ajouter une marque</a><br>
-     <a href="{{ path('add_note')}}"> Ajouter une note</a><br>
+    <h1>Les Fragrances</h1>
+    <a href="{{ path('add_parfum')}}"> Ajouter un parfum</a><br>
+    <a href="{{ path('add_marque')}}"> Ajouter une marque</a><br>
+    <a href="{{ path('add_note')}}"> Ajouter une note</a><br>
 
+    <div class="filter">
+        {% include 'parfum/filter.html.twig' with {form: form} only %}
+    </div>
 
-
-     <div class="filter">
-         {% include 'parfum/filter.html.twig' with {form:form} only %}
-     
-     </div>
-      {% for parfum in parfums %}
-      {% set imagePath = asset("" ~ parfum.image) %}
+    {% for parfum in parfums %}
+        {% set imagePath = asset('' ~ parfum.image) %}
 
         <div class="parfum-cart">
-          
-          <a href="{{path('detail_parfum',{"id":parfum.id})}}">
-            <div class="clicking-area" > 
-              <img src="{{ imagePath }}"><br>
-              {{parfum.nom }} <br>
-            </div>
-          </a>
+            <a href="{{ path('detail_parfum', {'id': parfum.id}) }}">
+                <div class="clicking-area">
+                    <img src="{{ imagePath }}"><br>
+                    {{ parfum.nom }} <br>
+                </div>
+            </a>
 
-          <a>  {{parfum.marque}} </a> <br>
-        </div>     
+            <a>{{ parfum.marque }}</a> <br>
+            {% include "components/like.html.twig" %}
+        </div>
+    {% endfor %}
 
-      {% endfor %}
+    <script>
+      console.log('Webpack Encore is working'); // Ajoutez votre instruction console.log ici
+      // Ajoutez votre logique de gestion de l'action "like" ici
+    </script>
 
-
-    <br>
-   </div>
 {% endblock %}
+
+
+
+
+
+
+
+
 
 {# <div class="container">
   <h1>Dernieres nouveautés</h1>
