@@ -32,7 +32,8 @@ class ParfumController extends AbstractController
         // $parfums= $doctrine->getRepository(Parfum::class)->findAll();
         return $this->render('parfum/index.html.twig', [
             'parfums' => $parfums,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'data' => $data,
         ]);
         }
     
@@ -98,7 +99,7 @@ class ParfumController extends AbstractController
             $marque = $parfum->getMarque();
             $dupes= $parfum->getDupe();
             return $this->render('parfum/detail.html.twig', [
-                'parfum' => $parfum,
+                'parfum' => $parfums,
                 'marque'=>$marque,
                 'dupes'=>$dupes,
             ]);

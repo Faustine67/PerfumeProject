@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 use App\Entity\NoteDeTete;
-use App\Repository\ParfumRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Commentaire;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ParfumRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ParfumRepository::class)]
 class Parfum
@@ -34,8 +35,8 @@ class Parfum
     #[ORM\ManyToOne(inversedBy: 'parfums')]
     private ?Marque $marque = null;
 
-    // #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'parfumsfavoris')]
-    // private Collection $users;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'parfumsfavoris')]
+    private Collection $users;
 
     #[ORM\ManyToMany(targetEntity:User::class)]
     #[ORM\JoinTable(name: 'user_post_like')]
@@ -66,6 +67,9 @@ class Parfum
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\OneToMany(mappedBy: 'parfum', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
 
     public function __construct()
     {
@@ -76,6 +80,7 @@ class Parfum
         $this->noteCoeur = new ArrayCollection();
         $this->noteFond = new ArrayCollection();
         $this->likes= new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -218,32 +223,32 @@ class Parfum
         return $this;
     }
 
-    // /**
-    //  * @return Collection<int, self>
-    //  */
-    // public function getParfums(): Collection
-    // {
-    //     return $this->parfums;
-    // }
+    /**
+     * @return Collection<int, self>
+     */
+    public function getParfums(): Collection
+    {
+        return $this->parfums;
+    }
 
-    // public function addParfum(self $parfum): self
-    // {
-    //     if (!$this->parfums->contains($parfum)) {
-    //         $this->parfums->add($parfum);
-    //         $parfum->addDupe($this);
-    //     }
+    public function addParfum(self $parfum): self
+    {
+        if (!$this->parfums->contains($parfum)) {
+            $this->parfums->add($parfum);
+            $parfum->addDupe($this);
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function removeParfum(self $parfum): self
-    // {
-    //     if ($this->parfums->removeElement($parfum)) {
-    //         $parfum->removeDupe($this);
-    //     }
+    public function removeParfum(self $parfum): self
+    {
+        if ($this->parfums->removeElement($parfum)) {
+            $parfum->removeDupe($this);
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     /**
      * @return Collection<int, NoteDeTete>
@@ -368,6 +373,36 @@ class Parfum
     public function __toString(): string
     {
         return $this->getNom() ?? '';
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setParfum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getParfum() === $this) {
+                $commentaire->setParfum(null);
+            }
+        }
+
+        return $this;
     }
 
 }

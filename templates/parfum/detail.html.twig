@@ -38,24 +38,39 @@
       
     {% if parfum.dupe is not empty %}
         {% for dupe in dupes %}
-            {% set dupeImagePath = asset("" ~ parfum.dupe.image) %}
-             <a href="{{ path('detail_parfum', {'id': dupe.id}) }}">
-              <div class="clicking-area">
-                  <img src="{{dupeImagePath }}"><br>
-                  {{ parfum.dupe[0].nom }} <br>
-              </div>
+       
+            {% set dupeImagePath = asset("" ~ dupe.image) %}
+            <a href="{{ path('detail_parfum', {'id': dupe.id}) }}">
+                <div class="clicking-area">
+                    <img src="{{ dupeImagePath }}"><br>
+                    {{ dupe.nom }} <br>
+                </div>
             </a>
-             <a>{{ parfum.dupe[0].marque }}</a> <br>
+            <a>{{ parfum.dupe[0].marque }}</a> <br>
 
         {% else %}
 
       {% endfor %}
 
       {% endif %}
-  </div>
+</div>
 
-
+<div class="dupe"></div>
   <a href="{{ path('add_dupe', {'id': parfum.id}) }}"> Ajouter un dupe</a><br>
+</div>
+
+<div class=" commentaire">
+<h2>Commentaire(s)</h2>
+{% for commentaire in parfum.commentaires %}
+    {% if commentaire.isApprouved %}
+
+    {% endif %}
+{{commentaire.user.pseudo}}<br>
+{{commentaire.contenu}}<br>
+
+{% endfor %}
+
+</div>
   
   {% endblock %}
 
