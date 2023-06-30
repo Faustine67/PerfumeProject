@@ -61,6 +61,14 @@
 
 <div class=" commentaire">
 <h2>Commentaire(s)</h2>
+    <div='Nouveau Commentaire'>
+        {{form_start(form)}}
+        {{form_label(form.contenu,'Nouveau Commentaire')}}
+        {{form_widget(form.contenu)}}
+        <button type="submit">Poster un commentaire</button>
+        {{form_end(form)}}
+
+    </div>
 {% for commentaire in parfum.commentaires %}
     {% if commentaire.isApprouved %}
 
