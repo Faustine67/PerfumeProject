@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Marque;
 use App\Entity\Parfum;
 use App\Form\DupeType;
@@ -91,10 +92,10 @@ class ParfumController extends AbstractController
     
     //Afficher un parfum par Id
     #[Route('/parfum/{id}', name: 'detail_parfum', methods:['GET', 'POST'])]
-        public function detail (EntityManagerInterface $entityManager,ManagerRegistry $doctrine, $id, Parfum $parfums, Request $request): Response
-        {
+    public function detail(EntityManagerInterface $entityManager, ManagerRegistry $doctrine, $id, Parfum $parfum, User $user = null, Request $request): Response
+    {
             $parfum= $doctrine->getRepository(Parfum::class)->find($id);
-           
+            
             if (!$parfum) {
                 throw $this->createNotFoundException('Le parfum n\'existe pas.');
             }
@@ -106,7 +107,9 @@ class ParfumController extends AbstractController
                 $commentaire->setParfum($parfum);
                 if($this->getUser()) {
                     $commentaire->setUser($this->getUser());
+                    $parfumsFavoris = $user ? $user->getParfumsFavoris()->contains($parfum) : false;
                 }
+
             }
             
             // Créer le formulaire pour ajouter un commentaire
@@ -121,16 +124,18 @@ class ParfumController extends AbstractController
                 //Enregistrer le commentaire dans la base de données
                 $entityManager->persist($commentaire);
                 $entityManager->flush();
-                $this->addFlash('success', 'Votre commentaire a bien été enregistré. Il sera soumis à modération dans les plus brefs délais.');
+                $this->addFlash('success', 'Votre commentaire a bien été enregistré');
             }
 
             $marque = $parfum->getMarque();
             $dupes= $parfum->getDupe();
             return $this->render('parfum/detail.html.twig', [
-                'parfum' => $parfums,
+                'parfum' => $parfum,
                 'marque'=>$marque,
                 'dupes'=>$dupes,
                 'form'=>$form->createView(),
+                'parfumsFavoris' => $parfumsFavoris,
+
             ]);
         }
 }

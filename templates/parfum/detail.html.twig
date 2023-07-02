@@ -10,6 +10,16 @@
       <img src="{{ imagePath }}">
       </div>
 
+      <div>
+        {# {% if isFavori %}
+        <p>Déjà dans vos favoris.</p> #}
+    {# {% else %} #}
+    <a href="#" id="addFavoriButton" data-parfum-id="{{ parfum.id }}"  data-user-id="{{ app.user.id }}" data-method="POST" >Ajouter aux favoris</a>
+
+    
+    {# {% endif %} #}
+    </div>
+
       <div class='info-parfum'>
            <br> <h1>{{parfum.nom}}</h1>
            <a href="{{path('detail_marque',{"id":marque.id})}}"> {{parfum.marque}} </a>
@@ -31,6 +41,7 @@
             {{ noteFond.nom }}<br>
             {% endfor %}
       </div>
+      
 </div>
 
 <div class="dupe-cart">
@@ -47,13 +58,16 @@
                 </div>
             </a>
             <a>{{ parfum.dupe[0].marque }}</a> <br>
-
-        {% else %}
-
-      {% endfor %}
-
-      {% endif %}
+            {% include "components/like.html.twig" %}
+            {% endfor %}
+            
+            
+                    {% else %}
+            
+            
+                  {% endif %}
 </div>
+
 
 <div class="dupe"></div>
   <a href="{{ path('add_dupe', {'id': parfum.id}) }}"> Ajouter un dupe</a><br>
@@ -79,7 +93,39 @@
 {% endfor %}
 
 </div>
-  
-  {% endblock %}
+{% endblock %}
 
-  
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            // Le script AJAX pour ajouter aux favoris
+            $('#addFavoriButton').on('click', function () {
+                var parfumId = $(this).data('parfum-id');
+                var userId = $(this).data('user-id');
+
+                if (!parfumId || !userId) {
+                    alert('Erreur: parfumId ou userId non défini.');
+                    return;
+                }
+
+                // Effectuer une requête AJAX pour ajouter le favori
+                $.ajax({
+                    type: 'POST',
+                    url: path,
+                    success: function (data) {
+                        // Le favori a été ajouté avec succès
+                        // Vous pouvez ajouter ici une logique pour mettre à jour l'affichage ou afficher un message de confirmation
+                        alert('Le parfum a été ajouté aux favoris.');
+                    },
+                    error: function (xhr, status, error) {
+                        // En cas d'erreur, vous pouvez gérer l'affichage d'un message d'erreur approprié
+                        alert('Une erreur est survenue lors de l\'ajout aux favoris : ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+
