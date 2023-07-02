@@ -14,7 +14,7 @@
         {# {% if isFavori %}
         <p>Déjà dans vos favoris.</p> #}
     {# {% else %} #}
-    <a href="#" id="addFavoriButton" data-parfum-id="{{ parfum.id }}"  data-user-id="{{ app.user.id }}" data-method="POST" >Ajouter aux favoris</a>
+    <a href="#" id="addFavoriButton" data-parfum-id="{{ parfum.id }}" data-user-id="{{ app.user.id }}" data-method="POST" data-path="{{ path('add_favori', {'parfumId': 'PARFUM_ID', 'userId': 'USER_ID' }) }}">Ajouter aux favoris</a>
 
     
     {# {% endif %} #}
@@ -103,6 +103,9 @@
             $('#addFavoriButton').on('click', function () {
                 var parfumId = $(this).data('parfum-id');
                 var userId = $(this).data('user-id');
+            // replace remplace le nombre de repetition des chaines ParfumID et UserID (c'est juste esthétique)
+                var url = $(this).data('path').replace('PARFUM_ID', parfumId).replace('USER_ID', userId);
+
 
                 if (!parfumId || !userId) {
                     alert('Erreur: parfumId ou userId non défini.');
